@@ -4,7 +4,7 @@ require "morning-pages/version"
 
 Gem::Specification.new do |s|
   s.name        = "morning-pages"
-  s.version     = Morning::Pages::VERSION
+  s.version     = MorningPages::VERSION
   s.authors     = ["Chris Parsons"]
   s.email       = ["chris.p@rsons.org"]
   s.homepage    = "http://github.com/chrismdp/morning-pages"
@@ -20,7 +20,8 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  # specify any dependencies here; for example:
-  # s.add_development_dependency "rspec"
-  # s.add_runtime_dependency "rest-client"
+  s.add_development_dependency 'rspec',    '~> 2.10.0'
+  s.add_development_dependency 'rake',     '~> 0.9.2.2'
+  s.add_development_dependency 'cucumber', '~> 1.2'
+  s.add_development_dependency 'aruba',    '~> 0.4'
 end

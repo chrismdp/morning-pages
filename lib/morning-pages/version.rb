@@ -1,5 +1,3 @@
-module Morning
-  module Pages
-    VERSION = "0.0.1"
-  end
+module MorningPages
+  VERSION = "0.0.1"
 end
