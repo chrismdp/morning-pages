@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+require 'trollop'
+
+opts = Trollop.options do
+  opt :dir, "Words directory", :required => false, :type => :string, :default => "~/Documents/words"
+end
+
+todays_file = %{#{opts[:dir]}/#{Time.now.strftime("%Y\-%m\-%d")}}
+system "$EDITOR #{todays_file}"
