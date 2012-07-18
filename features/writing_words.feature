@@ -6,3 +6,4 @@ Feature: writing words
   Scenario:
     When I run 'morning-pages'
     Then I should be able to write my words
+    And I see my current word count after I finish
