@@ -1,4 +1,5 @@
 require "morning-pages/version"
+require 'fileutils'
 
 class Array
   def mean

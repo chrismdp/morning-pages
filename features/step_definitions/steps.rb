@@ -9,7 +9,7 @@ Then /^I should be able to write my words$/ do
   check_exact_file_content "#{@dir}/#{Time.now.strftime("%Y\-%m\-%d")}", "fake editor output"
 end
 
-Then /^I see my current word count after I finish$/ do
+Then /^I see my current word stats after I finish$/ do
   all_output.should match(/3 words/)
 end
 

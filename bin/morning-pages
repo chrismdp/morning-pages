@@ -2,13 +2,13 @@
 $: << File.dirname(__FILE__) + '/../lib'
 
 require 'trollop'
-require 'fileutils'
 require 'morning-pages'
 
 opts = Trollop.options do
   opt :dir, "Words directory", :required => false, :type => :string, :default => "~/words"
 end
 
+opts[:dir] = File.expand_path(opts[:dir])
 MorningPages.setup(opts)
 
 path = MorningPages.today_path(opts[:dir])
