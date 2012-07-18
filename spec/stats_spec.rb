@@ -16,6 +16,12 @@ module MorningPages
         MorningPages.stats_for_today("foo").should match(/2\.5/)
       end
 
+      it 'prints whether you hit 750 words yet' do
+        MorningPages.stats_for_today("foo").should match(/0.27%/)
+        File.stub(:read => "word " * 800)
+        MorningPages.stats_for_today("foo").should match(/Congratulations.*awesome/)
+      end
+
       context 'when today has no words yet' do
         before do
           File.stub(:exists? => false)

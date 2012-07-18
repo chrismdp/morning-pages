@@ -12,6 +12,8 @@ class Array
 end
 
 module MorningPages
+  TARGET = 750
+
   def self.setup(options)
     FileUtils.mkdir_p(options[:dir]) unless File.exists?(options[:dir])
   end
@@ -19,13 +21,22 @@ module MorningPages
   def self.stats_for_today(dir)
     words = get_words_for(today_path(dir)).split(" ")
     [
+      target(words),
       "You have written #{words.count} words today.",
       average_word_length(words)
-    ].join(" ")
+    ].join("\n")
   end
 
   def self.average_word_length(words)
-    words.empty? ? "" : "Average word length: %.2f" % [ words.average_length ]
+    words.count > 0 ?
+      "Average word length: %.2f." % [ words.average_length ] :
+      ""
+  end
+
+  def self.target(words)
+    words.count >= TARGET ?
+      "Congratulations! You have reached the target today -- you are awesome!" :
+      "You have written %.2f%% of the target today." % [words.count * 100.0 / TARGET]
   end
 
   def self.today_path(dir)
