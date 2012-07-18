@@ -17,9 +17,10 @@ In future, I hope to post words stats up to a central server so we can track lea
 
 We work on pull requests. If you have an idea for something you'd like to contribute, here's how to do it:
 
-1. Create a local branch, and commit a failing spec that describes what you want to implement.
-2. Push the branch, go on Github and create a pull request from the head of the branch.
-3. Start the conversation: ping the mailing list and get some people to pair with you on designing the code. Iterate in the pull request, adding more specs, making them pass and refactoring until everyone is happy.
-4. Remember to regularly rebase your branch from master in case there are upstream changes to pull in.
-5. Get someone else to merge your pull request, that way you know your code makes sense to at least one other person.
-6. Go and have a nice cup of tea to celebrate.
+* Fork the project.
+* Make your feature addition or bug fix.
+* Add tests for it. This is important so I don't break it in a
+  future version unintentionally.
+* Commit, do not mess with rakefile, version, or history.
+  (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
+* Send me a pull request. Bonus points for topic branches.
