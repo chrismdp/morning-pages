@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.summary     = %q{Command line helper to write your morning pages}
   s.description = %q{I've long been fascinated by the morning pages habit of writing three pages (or about 750 words) of whatever comes into your head each day - it's like taking a mental showers and helps to clear your head, ready for the day. There are great sites out there like http://750words.com, but I live on the command line and like to keep my words on my own computer.
   
-  When installed, type `morning-pages help` for more info.}
+  When installed, type `morning-pages -h` for more info.}
 
   s.rubyforge_project = "morning-pages"
 
