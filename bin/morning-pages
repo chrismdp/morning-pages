@@ -1,12 +1,15 @@
 #!/usr/bin/env ruby
+$: << File.dirname(__FILE__) + '/../lib'
 
 require 'trollop'
+require 'fileutils'
+require 'morning-pages'
 
 opts = Trollop.options do
   opt :dir, "Words directory", :required => false, :type => :string, :default => "~/Documents/words"
 end
 
-Dir.mkdir(opts[:dir]) unless File.exists?(opts[:dir])
+MorningPages.setup(opts)
 
 todays_file = %{#{opts[:dir]}/#{Time.now.strftime("%Y\-%m\-%d")}}
 system "$EDITOR #{todays_file}"
