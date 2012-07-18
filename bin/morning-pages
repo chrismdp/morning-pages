@@ -6,5 +6,7 @@ opts = Trollop.options do
   opt :dir, "Words directory", :required => false, :type => :string, :default => "~/Documents/words"
 end
 
+Dir.mkdir(opts[:dir]) unless File.exists?(opts[:dir])
+
 todays_file = %{#{opts[:dir]}/#{Time.now.strftime("%Y\-%m\-%d")}}
 system "$EDITOR #{todays_file}"

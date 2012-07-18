@@ -10,7 +10,7 @@ Then /^I should be able to write my words$/ do
 end
 
 Before do
-  @dir = Dir.mktmpdir
+  @dir = Dir.mktmpdir + "/words"
 end
 
 After do
