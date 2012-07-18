@@ -6,7 +6,7 @@ require 'fileutils'
 require 'morning-pages'
 
 opts = Trollop.options do
-  opt :dir, "Words directory", :required => false, :type => :string, :default => "~/Documents/words"
+  opt :dir, "Words directory", :required => false, :type => :string, :default => "~/words"
 end
 
 MorningPages.setup(opts)
