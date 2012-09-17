@@ -7,3 +7,8 @@ Feature: Uploading stats
     Then I should be asked for my username and email before writing
     And I should have my stats uploaded to the website after writing
 
+  Scenario: Username already taken
+    When I run 'morning-pages' for the first time
+    And I enter an existing username
+    Then I should be asked for another username
+

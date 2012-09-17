@@ -9,10 +9,11 @@ opts = Trollop.options do
 end
 
 opts[:dir] = File.expand_path(opts[:dir])
-MorningPages.setup(opts)
 
-path = MorningPages.today_path(opts[:dir])
+pages = MorningPages::Folder.new(opts)
+
+path = pages.today_path(opts[:dir])
 
 system "$EDITOR #{path}"
 
-puts MorningPages.stats_for_today(opts[:dir])
+puts pages.stats_for_today(opts[:dir])
