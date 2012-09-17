@@ -9,17 +9,17 @@ describe 'stats' do
     end
 
     it 'prints out the word count' do
-      subject.stats_for_today("foo").should match(/2 words/)
+      subject.stats_for_today.should match(/2 words/)
     end
 
     it 'prints the average word length' do
-      subject.stats_for_today("foo").should match(/2\.5/)
+      subject.stats_for_today.should match(/2\.5/)
     end
 
     it 'prints whether you hit 750 words yet' do
-      subject.stats_for_today("foo").should match(/0.27%/)
+      subject.stats_for_today.should match(/0.27%/)
       File.stub(:read => "word " * 800)
-      subject.stats_for_today("foo").should match(/Congratulations.*awesome/)
+      subject.stats_for_today.should match(/Congratulations.*awesome/)
     end
 
     context 'when today has no words yet' do
@@ -28,11 +28,11 @@ describe 'stats' do
       end
 
       it "shows a message to that effect" do
-        subject.stats_for_today("foo").should match(/0 words/)
+        subject.stats_for_today.should match(/0 words/)
       end
 
       it "does not show average" do
-        subject.stats_for_today("foo").should_not match(/NaN/)
+        subject.stats_for_today.should_not match(/NaN/)
       end
     end
   end

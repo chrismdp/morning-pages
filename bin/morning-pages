@@ -12,8 +12,8 @@ opts[:dir] = File.expand_path(opts[:dir])
 
 pages = MorningPages::Folder.new(opts)
 
-path = pages.today_path(opts[:dir])
+path = pages.today_path
 
 system "$EDITOR #{path}"
 
-puts pages.stats_for_today(opts[:dir])
+puts pages.stats_for_today
