@@ -1,19 +1,24 @@
 require 'tmpdir'
 
+def prep_config
+  yaml = "---\n:username: test\n:email: test@example.com\n"
+  File.open(@config, 'w') { |f| f.write(yaml) }
+end
+
 When /^I run 'morning\-pages'$/ do
+  prep_config
   run "morning-pages -d #{@dir}"
 end
 
 When /^I run 'morning\-pages' for the first time$/ do
-  run_interactive "morning-pages -d #{@dir}"
+  run_interactive "morning-pages -d #{@dir} -c #{@config}"
+  type("chrismdp")
+  type("chris@example.com")
 end
 
 Then /^I should be asked for my username and email before writing$/ do
-  pending
   all_output.should match(/username/i)
-  type('chrismdp')
   all_output.should match(/email/i)
-  type('chris@example.com')
 end
 
 Then /^I should have my stats uploaded to the website after writing$/ do
@@ -31,6 +36,7 @@ end
 
 Before do
   @dir = Dir.mktmpdir + "/words/foo"
+  @config = Dir.mktmpdir + 'config.yml'
 end
 
 After do

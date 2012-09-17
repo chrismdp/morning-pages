@@ -3,12 +3,29 @@ $: << File.dirname(__FILE__) + '/../lib'
 
 require 'trollop'
 require 'morning-pages'
+require 'highline/import'
 
 opts = Trollop.options do
   opt :dir, "Words directory", :required => false, :type => :string, :default => "~/words"
+  opt :config, "Configuration file", :required => false, :type => :string, :default => "~/.morning-pages/config.yml"
 end
 
-opts[:dir] = File.expand_path(opts[:dir])
+[:dir, :config].each { |key| opts[key] = File.expand_path(opts[key]) }
+
+config = MorningPages::Config.new(opts[:config])
+unless (config.registered?)
+  say "<%= color('Welcome to Morning Pages!', :yellow) %>"
+  say "We record basic stats and the fact you've posted under your chosen username at http://morning-pages.me"
+  say "We never post your actual words or your real name."
+  username = ask "What is your desired username? " do |q|
+    q.validate = /\w+/
+  end
+  email = ask "What is your email address (for account recovery?) " do |q|
+    q.validate = /@/
+  end
+  config.register!(:username => username, :email => email)
+  say "Saved to #{opts[:config]}."
+end
 
 pages = MorningPages::Folder.new(opts)
 
