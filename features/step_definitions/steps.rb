@@ -7,7 +7,7 @@ end
 
 When /^I run 'morning\-pages'$/ do
   prep_config
-  run "morning-pages -d #{@dir}"
+  run "morning-pages -d #{@dir} -c #{@config}"
 end
 
 When /^I run 'morning\-pages' for the first time$/ do
