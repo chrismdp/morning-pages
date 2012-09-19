@@ -8,11 +8,12 @@ require 'highline/import'
 opts = Trollop.options do
   opt :dir, "Words directory", :required => false, :type => :string, :default => "~/words"
   opt :config, "Configuration file", :required => false, :type => :string, :default => "~/.morning-pages/config.yml"
+  opt :server, "Stats server", :required => false, :type => :string, :default => "http://morning-pages.me/api"
 end
 
 [:dir, :config].each { |key| opts[key] = File.expand_path(opts[key]) }
 
-config = MorningPages::Config.new(opts[:config])
+config = MorningPages::Config.new(opts[:config], opts[:server])
 unless (config.registered?)
   say "<%= color('Welcome to Morning Pages!', :yellow) %>"
   say "We record basic stats and the fact you've posted under your chosen username at http://morning-pages.me"

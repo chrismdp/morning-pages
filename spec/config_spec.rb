@@ -1,8 +1,11 @@
 require 'morning-pages'
 
+require 'webmock/rspec'
+
 describe 'config' do
-  subject { MorningPages::Config.new('new-folder/file') }
-  let(:yaml) { "---\n:username: test\n:email: test@example.com\n" }
+  subject { MorningPages::Config.new('new-folder/file', 'http://morning-pages.me/api') }
+  let(:params) {{ :username => "test", :email => "test@example.com" }}
+  let(:yaml) { params.to_yaml }
   before do
     FileUtils.stub(:mkdir_p)
   end
@@ -20,13 +23,21 @@ describe 'config' do
       subject.should_not be_registered
     end
 
-    it 'allows saving to file' do
-      file = double
-      File.stub(:open).with('new-folder/file', 'w').and_yield(file)
-      file.should_receive(:write).with(yaml)
-      subject.register!(:username => 'test', :email => 'test@example.com')
+    context 'saving to file' do
+      let(:file) { double }
+      before do
+        File.stub(:open).with('new-folder/file', 'w').and_yield(file)
+        stub_request(:post, "http://morning-pages.me/api/register").
+          to_return(:status => 200, :body => %{{"key":"abcde"}}, :headers => { "Content-type" => "application/json"})
+      end
+
+      it 'writes the file with a key from the server' do
+        file.should_receive(:write).with(params.merge(:key => 'abcde').to_yaml)
+        subject.register!(:username => 'test', :email => 'test@example.com')
+      end
     end
   end
+
   context 'with an existing folder but no file' do
     before do
       File.stub(:exists?).with('new-folder').and_return(true)

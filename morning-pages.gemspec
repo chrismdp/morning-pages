@@ -22,8 +22,12 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'trollop', '~> 1.16.2'
   s.add_dependency 'highline'
+  s.add_dependency 'httparty'
   s.add_development_dependency 'rspec',    '~> 2.10.0'
   s.add_development_dependency 'rake',     '~> 0.9.2.2'
   s.add_development_dependency 'cucumber', '~> 1.2'
   s.add_development_dependency 'aruba',    '~> 0.4'
+  s.add_development_dependency 'webmock',    '~> 1.8.10'
+  s.add_development_dependency 'background_process',    '~> 1.3'
+  s.add_development_dependency 'sinatra'
 end
