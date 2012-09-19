@@ -28,6 +28,10 @@ module MorningPages
       write!
     end
 
+    def post_stats!(params)
+      HTTParty.post("#{@server}/stats", :body => params.merge(:key => @config[:key]))
+    end
+
     private
 
     def save(params)

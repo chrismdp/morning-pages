@@ -34,4 +34,7 @@ path = pages.today_path
 
 system "$EDITOR #{path}"
 
-puts pages.stats_for_today
+stats = MorningPages::Stats.new(pages.todays_words)
+stats.post!(config)
+puts MorningPages::TextReporter.new(stats).report
+say "Stats uploaded to #{opts[:server]}"

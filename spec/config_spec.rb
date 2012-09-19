@@ -36,6 +36,14 @@ describe 'config' do
         subject.register!(:username => 'test', :email => 'test@example.com')
       end
     end
+
+    context 'posting stats' do
+      it 'posts them to the website' do
+        stub_request(:post, "http://morning-pages.me/api/stats").
+          to_return(:status => 200, :body => %{{"key":"abcde"}}, :headers => { "Content-type" => "application/json"})
+        subject.post_stats!(:count => 4, :average_length => 2.1)
+      end
+    end
   end
 
   context 'with an existing folder but no file' do

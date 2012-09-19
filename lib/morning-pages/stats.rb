@@ -7,5 +7,9 @@ module MorningPages
     def average_length
       words.average_length
     end
+
+    def post!(config)
+      config.post_stats!(:count => count, :average_length => average_length)
+    end
   end
 end

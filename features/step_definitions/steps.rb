@@ -27,7 +27,6 @@ Then /^I should be asked for my username and email before writing$/ do
 end
 
 Then /^I should have my stats uploaded to the website after writing$/ do
-  pending
   all_output.should match(/uploaded/i)
 end
 
