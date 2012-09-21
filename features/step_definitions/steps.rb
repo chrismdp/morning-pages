@@ -41,12 +41,21 @@ end
 
 Before do
   @dir = Dir.mktmpdir + "/words/foo"
-  @config = Dir.mktmpdir + 'config.yml'
+  @config = Dir.mktmpdir + '/config.yml'
   @server = BackgroundProcess.run("bundle exec rackup -p 45110 features/support/server.ru")
-  @server.detect { |line| line =~ /WEBrick::HTTPServer#start/ }
+  @out = []
+  @server.detect { |line| @out << line; line =~ /WEBrick::HTTPServer#start/ }
 end
+
 
 After do
   FileUtils.remove_entry_secure @dir if File.exists?(@dir)
-  %x{ps ax | grep -e "ruby.*45110" | grep -v grep | awk '{ print $1; }' | xargs kill}
+  @server.kill("KILL")
+  @server.wait
+  @out << @server.stdout.read
+  @out << @server.stderr.read
+  puts "Stopped server"
+  puts "TEST SERVER OUTPUT"
+  puts @out.join
+  $stdout.flush
 end

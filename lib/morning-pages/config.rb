@@ -24,12 +24,20 @@ module MorningPages
 
     def register!(params)
       response = HTTParty.post("#{@server}/register", :body => params)
+      return false if response.code != 200
       save(params.merge(:key => response.fetch("key")))
       write!
+      true
+    rescue Timeout::Error
+      return false
     end
 
     def post_stats!(params)
-      HTTParty.post("#{@server}/stats", :body => params.merge(:key => @config[:key]))
+      response = HTTParty.post("#{@server}/stats", :body => params.merge(:key => @config[:key]))
+      return false if response.code != 200
+      true
+    rescue Timeout::Error
+      return false
     end
 
     private

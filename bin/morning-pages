@@ -24,8 +24,12 @@ unless (config.registered?)
   email = ask "What is your email address (for account recovery?) " do |q|
     q.validate = /@/
   end
-  config.register!(:username => username, :email => email)
-  say "Saved to #{opts[:config]}."
+  if config.register!(:username => username, :email => email)
+    say "Saved to #{opts[:config]}."
+  else
+    say "<%= color('There was a problem registering your account'). %> You can continue but your stats will not be saved to the website."
+    ask "Press any key to continue, or Ctrl-C to quit"
+  end
 end
 
 pages = MorningPages::Folder.new(opts)
@@ -35,6 +39,9 @@ path = pages.today_path
 system "$EDITOR #{path}"
 
 stats = MorningPages::Stats.new(pages.todays_words)
-stats.post!(config)
 puts MorningPages::TextReporter.new(stats).report
-say "Stats uploaded to #{opts[:server]}"
+if stats.post!(config)
+  say "Stats uploaded to #{opts[:server]}"
+else
+  say "<%= color('There was a problem posting your stats this time.') %> You can try running the problem again to retry if you want to."
+end
