@@ -27,8 +27,10 @@ unless (config.registered?)
   if config.register!(:username => username, :email => email)
     say "Saved to #{opts[:config]}."
   else
-    say "<%= color('There was a problem registering your account'). %> You can continue but your stats will not be saved to the website."
-    ask "Press any key to continue, or Ctrl-C to quit"
+    say "<%= color('There was a problem registering your account.', :red) %> You can continue but your stats will not be saved to the website."
+    if (ask "Press enter to continue, or 'q' and then enter to quit:") == 'q'
+      exit(0)
+    end
   end
 end
 
@@ -43,5 +45,5 @@ puts MorningPages::TextReporter.new(stats).report
 if stats.post!(config)
   say "Stats uploaded to #{opts[:server]}"
 else
-  say "<%= color('There was a problem posting your stats this time.') %> You can try running the problem again to retry if you want to."
+  say "<%= color('There was a problem posting your stats this time.', :red) %> You can try running the problem again to retry if you want to."
 end
